@@ -4,11 +4,11 @@ ANALISTA EN SISTEMAS
 SEDE BELGRANO - GRUPO B
 
 ALUMNOS:
-Capua Camila Belen
-Ferrari Verónica
-Osses Macchia - 
-Payer Tomás Alejandro
-Sirito Costa Eugenio Pedro
+- Capua, Camila Belen
+- Ferrari, Verónica
+- Osses Macchia, Germán
+- Payer, Tomás Alejandro
+- Sirito Costa, Eugenio Pedro
 
 ----------------------------------------------------------------------------------------------
 
