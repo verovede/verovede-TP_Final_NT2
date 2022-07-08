@@ -70,6 +70,8 @@ async function agregarAlumno(alumno) {
     return result;
 }
 
+
+
 async function actualizarAlumno(alumno, id) {
     const connectiondb = await conn.getConnection();
     const usuario = await getUsuarioById(id)
@@ -162,10 +164,33 @@ async function borrarCursoAlumno(id, data) {
 }
 
 
+// AGREGAR ADMINISTRADOR
+async function agregarAdmin(admin) {
+
+    const connectiondb = await conn.getConnection();
+    const usuario = await getUsuarioByEmail(admin.email)
+
+    if (usuario) {
+
+        throw new Error('Ya hay un mail registrado')
+    }
+
+    admin.password = await bcrypt.hash(admin.password, 8);
+    const alumnoNuevo = {
+        ...admin,
+        rol: 'administrador',
+        results: []
+    }
+    const result = await connectiondb
+        .db(DATABASE)
+        .collection(USUARIOS)
+        .insertOne(alumnoNuevo);
+    return result;
+}
 
 
 
 module.exports = {
     findByCredentials, getUsuarioByEmail, getUsuarioById, agregarAlumno,
-    actualizarAlumno, borrarAlumno, getTodosAlumnos, agregarCursoAlumno, borrarCursoAlumno
+    actualizarAlumno, borrarAlumno, getTodosAlumnos, agregarCursoAlumno, borrarCursoAlumno,agregarAdmin
 };

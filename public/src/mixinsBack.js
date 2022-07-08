@@ -8,7 +8,7 @@ export const mixinsBack = {
                 password: this.formData.password,
             };
 
-            let resu = await this.$store.dispatch("loguearUsuario", usuario);
+            let resu = await this.$store.dispatch("loguearAdmin", usuario);
 
             if (resu) {
                 this.visible = true

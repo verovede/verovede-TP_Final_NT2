@@ -13,8 +13,8 @@ async function agregarAlumno(alumno){
     return usuarios.agregarAlumno(alumno);
 }
 
-async function agregarProfesor(profesor){
-    return usuarios.agregarProfesor(profesor);
+async function agregarAdmin(admin){
+    return usuarios.agregarAdmin(admin);
 }
 
 async function actualizarAlumno(alumno, id){
@@ -47,6 +47,8 @@ async function borrarCursoAlumno(idUsuario, idCurso){
 }
 
 
+
+
 module.exports = {findByCredential, generateAuthToken, getUsuarioByEmail, getUsuarioById, agregarAlumno, 
-                    agregarProfesor, actualizarAlumno, borrarAlumno, getTodosAlumnos, agregarCursoAlumno,
-                    borrarCursoAlumno};
+                    actualizarAlumno, borrarAlumno, getTodosAlumnos, agregarCursoAlumno,
+                    borrarCursoAlumno, agregarAdmin}

@@ -107,6 +107,17 @@ export default new Vuex.Store({
             }
         },
 
+        async loguearAdmin({ commit }, credenciales) {
+            try {
+                const { data: usuario } = await axios.post(url + "/api/usuarios/loginAdmin", credenciales, { 'content-type': 'application/json' })
+                commit('SET_USUARIO', usuario)
+                return true
+            }
+            catch (error) {
+                return false
+            }
+        },
+
         async buscarUsuarioPorMail({ commit }, mail) {
             try {
                 const { data: usuario } = await axios.get(url + "/api/usuarios/consultarUsuarioPorMail/" + mail)

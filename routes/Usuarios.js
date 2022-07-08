@@ -44,7 +44,7 @@ router.delete('/usuarios/:id', async(req,res)=>{
     }
 });
 
-// POST api/usuarios/login
+// POST api/usuarios/login BODY -> DATOS
 router.post('/usuarios/login', async (req, res) => {
     try {
         const usuario = await controller.findByCredential(req.body.email, req.body.password);
@@ -74,6 +74,7 @@ router.get('/usuarios/consultarUsuario/:id', async (req, res) => {
     }
 });
 
+/* PUT api/usuarios/agregarCursoAlumno/:id BODY -> DATOS */
 router.put('/usuarios/agregarCursoAlumno/:id', async(req, res) => {
     try{
         const usuario = await controller.agregarCursoAlumno(req.params.id,req.body)
@@ -83,6 +84,7 @@ router.put('/usuarios/agregarCursoAlumno/:id', async(req, res) => {
     }
 });
 
+/* DELETE api/usuarios/borrarCursoAlumno/:id BODY -> DATOS */
 router.delete('/usuarios/borrarCursoAlumno/:id', async(req, res) => {
     
     try{        
@@ -92,6 +94,29 @@ router.delete('/usuarios/borrarCursoAlumno/:id', async(req, res) => {
         res.status(400).send('Error ' + err.message)
     }
 });
+
+// POST api/usuarios/loginAdmin BODY -> DATOS
+router.post('/usuarios/loginAdmin', checkRols.checkRols('administrador'),async (req, res) => {
+    try {
+        const usuario = await controller.findByCredential(req.body.email, req.body.password);
+        res.status(200).json(usuario);
+      } catch (error) {
+        console.log(error, 'no entra')
+        res.status(401).send(error.message);
+       
+      }
+})
+
+/* POST api/usuarios/ BODY -> DATOS */
+router.post('/usuarios/agregarAdmin', async(req, res) => {
+    try{
+        const usuario = await controller.agregarAdmin(req.body);
+        res.status(200).json(usuario);
+    }catch(err){
+        res.status(400).send('Error ' + err.message)
+    }
+});
+
 
 
 
