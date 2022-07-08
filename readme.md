@@ -1,33 +1,22 @@
 Usuarios
 
-GET api/usuarios/consultarUsuarioPorMail/:email
-GET api/usuarios/consultarUsuario/:id
-POST api/usuarios/agregarAlumno BODY -> DATOS
-POST api/usuarios/agregarProfesor BODY -> DATOS
-PUT api/usuarios/actualizarAlumno BODY -> DATOS
-DELETE api/usuarios/borrarAlumno/:id
-GET api/usuarios/listarAlumnos
-POST api/usuarios/login
-
-Resultados
-
-PUT api/resultados/agregarResultadosAlumno/:id BODY -> DATOS
+- GET api/usuarios
+- POST api/usuarios/ BODY -> DATOS
+- PUT api/usuarios/:id BODY -> DATOS
+- DELETE api/usuarios/:id
+- POST api/usuarios/login BODY -> DATOS
+- GET api/usuarios/consultarUsuarioPorMail/:email
+- GET api/usuarios/consultarUsuario/:id
+- PUT api/usuarios/agregarCursoAlumno/:id BODY -> DATOS
+- DELETE api/usuarios/borrarCursoAlumno/:id BODY -> DATOS
 
 Examenes
 
-GET api/examenes/listarExamenes
-GET api/examenes/consultarExamen/:id
-POST api/examenes/agregarExamen BODY -> DATOS
-PUT api/examenes/actualizarExamen BODY -> DATOS 
-DELETE api/examenes/borrarExamen/:id
-
-Preguntas
-
-PUT api/preguntas/agregarPreguntasExamen/:id BODY -> DATOS
-
-Videos
-
-PUT api/videos/agregarVideosExamen/:id BODY -> DATOS
+- GET api/examenes
+- POST api/examenes/ BODY -> DATOS
+- PUT api/examenes/:id BODY -> DATOS
+- DELETE api/examenes/:id
+- GET api/examenes/consultarExamen/:id
 
 
 
