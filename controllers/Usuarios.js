@@ -46,6 +46,7 @@ async function borrarCursoAlumno(idUsuario, idCurso){
     return usuarios.borrarCursoAlumno(idUsuario, idCurso);
 }
 
+
 module.exports = {findByCredential, generateAuthToken, getUsuarioByEmail, getUsuarioById, agregarAlumno, 
                     agregarProfesor, actualizarAlumno, borrarAlumno, getTodosAlumnos, agregarCursoAlumno,
                     borrarCursoAlumno};

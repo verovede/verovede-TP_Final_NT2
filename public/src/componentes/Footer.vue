@@ -1,20 +1,20 @@
 <template>
-  <section class="container-fluid">
-    <div class="Footer-is-dark row">
+  <section class="container-fluid align-bottom ">
+    <div class="Footer-is-dark row pb-5 pt-5">
       <div class="col-4 SloganSection">
         <figure>
           <img
             loading="lazy"
-            src="https://static.platzi.com/static/images/footer/logo.png"
-            alt="Platzi"
+            src="https://images.vexels.com/media/users/3/224241/isolated/preview/4d2aacf413b02b74c2cdb75ea41f24d3-programacion-de-diple-logo.png"
+            alt="Cursos OnLine"
           />
         </figure>
+      </div>
+      <div class="col-4 column">
         <p>
           Transformamos la economía de nuestros países entrenando a la próxima
           generación de profesionales en tecnología.
         </p>
-      </div>
-      <div class="col-4 column">
         <p>Certificadores oficiales en tecnologías</p>
 
         <svg

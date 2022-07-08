@@ -86,12 +86,13 @@ router.put('/usuarios/agregarCursoAlumno/:id', async(req, res) => {
 router.delete('/usuarios/borrarCursoAlumno/:id', async(req, res) => {
     
     try{        
-        const usuario = (await controller.borrarCursoAlumno(req.params.id, req.body));
+        const usuario = (await controller.borrarCursoAlumno(req.params.id, req.body.data));
         res.status(200).json(usuario);
     }catch(err){
         res.status(400).send('Error ' + err.message)
     }
 });
+
 
 
 

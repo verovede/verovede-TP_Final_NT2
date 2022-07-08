@@ -41,7 +41,16 @@ export default {
   data() {
     return {};
   },
-  
+  filters: {
+    /* FILTROS QUE AGREGA EL SIMBOLO ANTES DEL PRECIO */
+    moneda: function (value, signo) {
+      return signo + Number(value == "" ? 0 : value).toFixed(2);
+    },
+
+    cuotas: function (value, cantCuotas) {
+      return ((value / cantCuotas) * 1.5).toFixed(2);
+    },
+  },
   methods: {
     getBg(img) {
       return `background-image: url("img/${img}")`;

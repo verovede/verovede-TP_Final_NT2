@@ -12,7 +12,8 @@ import 'popper.js'
 import 'bootstrap'
 import 'bootstrap-icons/font/bootstrap-icons'
 
-
+/*GLOBAL FILTERS */
+import './globalFilters'
 
 //import form
 import './form'

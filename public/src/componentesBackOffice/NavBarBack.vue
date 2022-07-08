@@ -1,8 +1,8 @@
 <template>
-  <section class="container-fluid" style="background: grey">
+  <section class="container-fluid bg-light">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link to="/Inicio">
+        <router-link to="/Backoffice">
           <a class="navbar-brand" href="#">Inicio</a>
         </router-link>
         <button
@@ -18,8 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" >
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -72,9 +71,10 @@
   </section>
 </template>
 
-<script lang="js">
-
+<script>
+ import { mixinsBack } from '../mixinsBack'
   export default  {
+    mixins: [mixinsBack],
     name: 'src-componentes-nav-b-ar',
     props: [],
     mounted () {
@@ -82,6 +82,7 @@
     },
     data () {
       return {
+        visible: false
 
       }
     },

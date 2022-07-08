@@ -27,13 +27,11 @@ export default new Vuex.Store({
         examenes: [],
         usuario: '',
         examen: '',
-
-
+       
     },
 
     getters: {
         cursos: state => state.examenes
-
     },
 
     actions: {
@@ -42,25 +40,22 @@ export default new Vuex.Store({
             try {
                 const usuarios = await axios.get(url + "/api/usuarios")
                 commit('GET_Usuarios', usuarios.data)
-
+                
             }
             catch (error) {
                 alert(error)
-
             }
         },
 
         async eliminarUsuario({ commit }, id) {
             try {
                 const { data: usuario } = await axios.delete(url + "/api/usuarios/" + id)
-                console.log(usuario)
+
                 commit('DELETE_Usuario', usuario)
                 return true
-
             }
             catch (error) {
                 alert(error)
-                console.log('ENTRA ACA', error)
             }
         },
 
@@ -80,16 +75,14 @@ export default new Vuex.Store({
         async actualizarUsuario({ commit }, usuarioAModificar) {
 
             try {
-                const { data: usuario } = await axios.put(url + "/api/usuarios/" + usuarioAModificar.id,
+                const { data: usuario } = await axios.put(url + "/api/usuarios/" + usuarioAModificar._id,
                     usuarioAModificar,
                     { 'content-type': 'application/json' }
                 )
                 commit('PUT_Usuario', usuario)
-
             }
             catch (error) {
                 alert(error)
-                console.log('Error en putUsuario ', error)
             }
         },
 
@@ -97,7 +90,6 @@ export default new Vuex.Store({
             try {
                 const { data: usuario } = await axios.get(url + "/api/usuarios/consultarUsuario/" + id)
                 commit('SET_USUARIO', usuario)
-
             }
             catch (error) {
                 alert(error)
@@ -119,8 +111,6 @@ export default new Vuex.Store({
             try {
                 const { data: usuario } = await axios.get(url + "/api/usuarios/consultarUsuarioPorMail/" + mail)
                 commit('SET_USUARIO', usuario)
-                console.log('usuaruo en el store por buscar mail', usuario)
-
             }
             catch (error) {
                 alert(error)
@@ -138,48 +128,39 @@ export default new Vuex.Store({
                     body,
                     { 'content-type': 'application/json' }
                 )
-
                 commit('PUT_Usuario', usuario)
-
             }
             catch (error) {
                 alert(error)
-                console.log('Error en inscribirACurso ', error)
             }
         },
 
         async borrarCursoAlumno({ commit }, data) {
 
-
-            console.log("acaaaa pekerman", data.usuario, data.curso)
             try {
-                const { data: usuario } = await axios.delete(url + "/api/usuarios/borrarCursoAlumno/" + data.usuario, 
-                data.curso, 
-                { 'content-type': 'application/json' })
-                console.log(usuario)
-                commit('PUT_Usuario', usuario)
-                return true
+                const { data: results } = await axios.delete(url + "/api/usuarios/borrarCursoAlumno/" + data.usuario,
+                    {
+                        headers: { 'content-type': 'application/json' },
+                        data: { data: data.curso }
+
+                    })
+
+                commit('PUT_results', results)
 
             }
             catch (error) {
                 alert(error)
-                console.log('ENTRA ACA', error)
             }
         },
-
-
-
 
         //APIS EXAMENES//
         async getCursos({ commit }) {
             try {
                 const { data: curso } = await axios.get(url + "/api/examenes")
                 commit('GET_Examenes', curso)
-
             }
             catch (error) {
                 alert(error)
-
             }
         },
 
@@ -187,13 +168,11 @@ export default new Vuex.Store({
             try {
                 const { data: curso } = await axios.post(url + "/api/examenes", cursoNuevo, { 'content-type': 'application/json' })
                 commit('POST_Curso', curso)
-
                 return true
-
             }
             catch (error) {
                 //alert(error)
-                console.log('ENTRA ACA--->', error)
+
                 return false
             }
         },
@@ -206,7 +185,6 @@ export default new Vuex.Store({
             }
             catch (error) {
                 alert(error)
-                console.log('ENTRA ACA', error)
             }
         },
 
@@ -223,7 +201,6 @@ export default new Vuex.Store({
             }
             catch (error) {
                 alert(error)
-                console.log('Error en PUT_Curso ', error)
             }
         },
 
@@ -231,20 +208,15 @@ export default new Vuex.Store({
         async borrarCurso({ commit }, id) {
             try {
                 const { data: curso } = await axios.delete(url + "/api/examenes/" + id)
-                console.log(curso)
+
                 commit('DELETE_Curso', curso)
                 return true
 
             }
             catch (error) {
                 alert(error)
-                console.log('ENTRA ACA', error)
             }
         },
-
-
-
-
 
     },
     mutations: {
@@ -252,6 +224,7 @@ export default new Vuex.Store({
         //USUARIOS//
         GET_Usuarios(state, data) {
             state.usuarios = data
+          
         },
 
         DELETE_Usuario(state, data) {
@@ -265,16 +238,19 @@ export default new Vuex.Store({
         },
 
         PUT_Usuario(state, data) {
-            console.log("ACTUALIZAR ", data)
             let index = state.usuarios.findIndex(usuario => usuario.id == data.id)
             state.usuarios.splice(index, 1, data)
-            console.log("state usuario --> ", state.usuario)
-            state.usuario = data
+           /*  state.usuario = data */
         },
 
         SET_USUARIO(state, data) {
             state.usuario = data
         },
+
+        PUT_results(state, data) {
+            state.usuario.results = data
+        },
+
 
         //EXAMENES//
         GET_Examenes(state, data) {
@@ -286,14 +262,12 @@ export default new Vuex.Store({
         },
 
         BUSCAR_Curso(state, data) {
-            console.log("buscar curso", data)
             state.examen = data
         },
 
         PUT_Curso(state, data) {
             let index = state.examenes.findIndex(curso => curso.id == data.id)
             state.examenes.splice(index, 1, data)
-
             state.examen = data
 
         },

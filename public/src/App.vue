@@ -52,7 +52,7 @@ export default {
 
 .cajaCurso {
   background: black;
-  height: 320px;
+  min-height: 400px;
   color: white;
   background-repeat: no-repeat;
   background-size: cover;

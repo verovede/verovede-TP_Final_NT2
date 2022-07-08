@@ -1,32 +1,45 @@
 <template>
   <section class="container-fluid">
-    <NavBar />
+    <NavBarBack />
     <div class="container">
-      <p class="h3 mt-5">{{ mostrarUsuario.name }}, Bienvenid@!</p>
+      <h1 class="mt-5">Formulario de Modificación de Usuarios</h1>
       <div class="row">
-        <div class="col-8">
-          <h1 class="pt-2">Inscribite en Nuestros Cursos!</h1>
-
-          <div v-if="mostrarExamenes.length">
-            <div class="row">
-              <Curso
-                v-for="(curso, index) in mostrarExamenes"
-                :key="index"
-                :curso="curso"
-                :click="botAccion"
-                :usuario="mostrarUsuario"
-                :botonStyle="compararExamen(curso._id)"
-                class="col-12"
-              />
+        <div class="col-9">
+          <p class="h5 mt-5">Listado de Cursos Realizados</p>
+          <div
+            class="media alert alert-info"
+            v-for="(curso, index) in this.results"
+            :key="index"
+          >
+            <div class="media-body">
+              <div class="col-5 float-left p-2">
+                {{ traerInfoCurso(curso.examen_id).name }}
+              </div>
+              <div class="col-3 float-left text-center p-2">
+                NOTA:
+                <input
+                  type="text"
+                  style="width: 50%"
+                  class="text-center"
+                  v-model="curso.number"
+                />
+              </div>
+              <div class="col-3 float-left text-center p-2">
+                Curso Pago: <input type="checkbox" v-model="curso.payment" />
+              </div>
+              <div class="col-1 float-left text-center p-2">
+                <button
+                  class="btn btn-danger"
+                  @click="borrarCurso(curso.examen_id)"
+                >
+                  Borrar
+                </button>
+              </div>
             </div>
           </div>
-          <h4 v-else class="alert alert-danger text-center">
-            No se encontraron Cursos
-          </h4>
         </div>
-        <div class="col-4">
-          <h1 class="pt-2">Tus datos de Perfil</h1>
-
+        <div class="col-3 bg-warning">
+          <p class="h5 mt-5">Datos Personales</p>
           <vue-form :state="formState" @submit.prevent="enviar()">
             <!-- CAMPO name  -->
 
@@ -132,8 +145,8 @@
             <!-- FIN CAMPO CORREO  -->
 
             <!-- ENVIO -->
-            <button class="btn btn-info my-3" :disabled="formState.$invalid">
-              Actualizar Datos
+            <button class="btn btn-info my-3 float-right" :disabled="formState.$invalid">
+              Guardar
             </button>
           </vue-form>
         </div>
@@ -143,20 +156,25 @@
 </template>
 
 <script>
-import Curso from "./Curso.vue";
-import NavBar from "./NavBar.vue";
+import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
+
+import { mixinsBack } from "../mixinsBack";
 
 export default {
-  name: "src-componentes-perfil-alumno",
-  components: { NavBar, Curso },
-  props: ["email"],
+  mixins: [mixinsBack],
+  name: "src-componentes-formulario-editar-usuario",
+  props: ["id"],
+  components: {
+    NavBarBack,
+  },
+
   mounted() {
     console.log("MOUNTED BUSCAR USUARIO");
-    this.$store.dispatch("buscarUsuarioPorMail", this.email);
-
+    this.$store.dispatch("buscarUsuarioPorId", this.id);
     console.log("GET EXAMENES");
     this.$store.dispatch("getCursos");
   },
+
   data() {
     return {
       formState: {},
@@ -164,73 +182,75 @@ export default {
       nameMinLength: 3,
       edadMin: 18,
       edadMax: 120,
-      botAccion: "Inscribirme Ahora!",
     };
   },
-  methods: {
-    compararExamen(id) {
-      const found = this.mostrarUsuario.results.find(
-        (resultado) => resultado.examen_id == id
-      );
 
-      if (found !== undefined) {
-        return "btn bg-warning  invisible ";
-      } else {
-        return " btn bg-warning  visible ";
-      }
+  methods: {
+    borrarCurso(id) {
+      let index = this.results.findIndex((curso) => curso.examen_id == id);
+
+      this.results.splice(index, 1);
     },
+
+    editarCurso(id, pago, nota) {
+      let index = this.results.findIndex((curso) => curso.examen_id == id);
+      let resultado = {
+        examen_id: id,
+        number: nota,
+        payment: pago,
+      };
+      this.results.splice(index, 1, resultado);
+      this.enviar();
+    },
+
     enviar() {
       console.log({ ...this.formData });
       let usuario = {
-        _id: this.formData._id,
         name: this.formData.name,
         phone: this.formData.phone,
         email: this.formData.email,
         password: this.formData.password,
         edad: this.formData.edad,
-        results: this.formData.results
+        _id: this.id,
+        results: this.results,
       };
 
       this.$store.dispatch("actualizarUsuario", usuario);
-     
+      this.getInicialData();
+      this.formState._reset();
 
-      
+      this.$router.push({
+        path: "/usuarios",
+      });
     },
 
     getInicialData() {
       return {
-        _id: "",
         name: "",
         phone: "",
         email: "",
         password: "",
         edad: "",
-        results: "",
+        results: [],
       };
     },
 
     cargarForm(usuario) {
-      this.formData._id = usuario._id;
       this.formData.name = usuario.name;
       this.formData.phone = usuario.phone;
       this.formData.email = usuario.email;
       this.formData.password = usuario.password;
       this.formData.edad = usuario.edad;
-      this.formData.results = usuario.results;
-    },
-  },
-  computed: {
-    mostrarUsuario() {
-      let usuario = this.$store.state.usuario;
-      this.cargarForm(usuario);
-      return usuario;
+      this.results = usuario.results;
+      
     },
 
-    mostrarExamenes() {
-      let examenes = this.$store.state.examenes;
-      return examenes;
+    traerInfoCurso(id) {
+      const found = this.mostrarExamenes.find((curso) => curso._id === id);
+      return found;
     },
   },
+  computed: {},
 };
 </script>
 

@@ -1,16 +1,19 @@
 <template>
   <section class="container-fluid">
-    <NavBarBack />
+    
+    <LoginBackOffice />
   </section>
 </template>
 
 <script>
-import NavBarBack from "./NavBarBack.vue";
+
+import LoginBackOffice from "../componentesBackOffice/LoginBackOffice.vue";
 
 export default {
   name: "src-componentes-back-office",
   components: {
-    NavBarBack,
+   
+    LoginBackOffice,
   },
   props: [],
   mounted() {},

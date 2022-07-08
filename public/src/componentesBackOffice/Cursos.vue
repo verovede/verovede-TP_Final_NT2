@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="mt-5">Listado de Cursos</h1>
 
-      <div v-if="mostrarCursos.length" class="table-responsive">
+      <div v-if="mostrarExamenes.length" class="table-responsive">
         <table class="table table-dark">
           <tr>
             <th>Nombre:</th>
@@ -17,7 +17,7 @@
             <th class="text-center">Editar Curso</th>
           </tr>
 
-          <tr v-for="(curso, index) in mostrarCursos" :key="index">
+          <tr v-for="(curso, index) in mostrarExamenes" :key="index">
             <td>
               {{ curso.name }}
             </td>
@@ -57,9 +57,11 @@
 </template>
 
 <script>
-import NavBarBack from "./NavBarBack.vue";
+import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
+import { mixinsBack } from "../mixinsBack";
 
 export default {
+  mixins: [mixinsBack],
   name: "src-componentes-curso",
   props: [],
   components: {
@@ -71,9 +73,7 @@ export default {
   },
 
   data() {
-    return {
-     
-    };
+    return {};
   },
   methods: {
     borrarCurso(id) {
@@ -87,18 +87,8 @@ export default {
         params: { id: id },
       });
     },
-
-    
   },
-  computed: {
-    
-
-    mostrarCursos() {
-      let examenes = this.$store.state.examenes;
-    
-      return examenes;
-    },
-  },
+  computed: {},
 };
 </script>
 

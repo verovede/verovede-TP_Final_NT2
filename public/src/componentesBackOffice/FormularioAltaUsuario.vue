@@ -122,27 +122,6 @@
         </validate>
         <!-- FIN CAMPO PASS  -->
 
-        <!-- CAMPO CHECK PASS  -->
-        <validate tag="div">
-          <input
-            placeholder="Repetir Contraseña"
-            v-model.trim="checkPass"
-            id="checkPassword"
-            name="checkPassword"
-            type="text"
-            class="form-control mt-3"
-            autocomplete="off"
-            required
-          />
-
-          <field-messages name="checkPassword" show="$dirty">
-            <div class="alert alert-danger mt-1" slot="required">
-              Campo obligatorio
-            </div>
-          </field-messages>
-        </validate>
-        <!-- FIN CAMPO CHECK PASS  -->
-
         <!-- ENVIO -->
         <button class="btn btn-info my-3" :disabled="formState.$invalid">
           Enviar
@@ -158,7 +137,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">ERROR!</h5>
               <button
                 type="button"
                 class="close"
@@ -169,7 +148,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Usuario ya registrado!</p>
+              <p>Usuario ya registrado con ese Correo Electronico!</p>
             </div>
             <div class="modal-footer">
               <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
@@ -189,7 +168,7 @@
 </template>
 
 <script>
-import NavBarBack from "./NavBarBack.vue";
+import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
 export default {
   name: "src-componentes-formulario",
   props: [],

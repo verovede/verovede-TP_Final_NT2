@@ -2,18 +2,19 @@
   <section class="container-fluid">
     <NavBarBack />
     <div class="container">
-      <h1 class="mt-5">Formulario de Ingreso de Cursos</h1>
+      <h1 class="mt-5">Formulario de Modificación de Cursos</h1>
 
       <vue-form :state="formState" @submit.prevent="enviar()">
         <!-- CAMPO NOMBRE CURSO  -->
         <validate tag="div">
+          <span style="font-weight: bold">Nombre del Curso</span>
           <input
-            placeholder="Nombre del Curso"
+          :placeholder="mostrarExamen.name"
             v-model.trim="formData.name"
             id="name"
             name="name"
             type="text"
-            class="form-control mt-3"
+            class="form-control mb-3"
             autocomplete="off"
             required
             :minlength="nameMinLength"
@@ -32,13 +33,13 @@
 
         <!-- CAMPO INTRO PORTADA  -->
         <validate tag="div">
+          <span style="font-weight: bold">Intro Portada</span>
           <textarea
-            placeholder="Intro Portada"
             v-model.trim="formData.intro"
             id="intro"
             name="intro"
             type="text"
-            class="form-control mt-3"
+            class="form-control mb-3"
             autocomplete="off"
             required
             :maxlength="introMaxLength"
@@ -58,13 +59,13 @@
           <div class="col-6">
             <!-- CAMPO DIRECCION  -->
             <validate tag="div">
+              <span style="font-weight: bold">Director</span>
               <input
-                placeholder="Dirección"
                 v-model.trim="formData.direccion"
                 id="direccion"
                 name="direccion"
                 type="text"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -79,13 +80,13 @@
 
             <!-- CAMPO DURACION  -->
             <validate tag="div">
+              <span style="font-weight: bold">Duración</span>
               <input
-                placeholder="Duración"
                 v-model.trim="formData.duracion"
                 id="duracion"
                 name="duracion"
                 type="text"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -99,13 +100,13 @@
             <!-- FIN CAMPO DURACION  -->
             <!-- CAMPO LINK VIDEO  -->
             <validate tag="div">
+              <span style="font-weight: bold">Url Video</span>
               <input
-                placeholder="URL video"
                 v-model.trim="formData.video"
                 id="video"
                 name="video"
                 type="text"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -121,13 +122,13 @@
           <div class="col-6">
             <!-- CAMPO VALOR  -->
             <validate tag="div">
+              <span style="font-weight: bold">Valor Curso</span>
               <input
-                placeholder="Valor del Curso"
                 v-model.trim="formData.valor"
                 id="valor"
                 name="valor"
                 type="number"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -142,13 +143,13 @@
 
             <!-- CAMPO INICIO  -->
             <validate tag="div">
+              <span style="font-weight: bold">Fecha de Inicio</span>
               <input
-                placeholder="Fecha de Inicio"
                 v-model.trim="formData.inicio"
                 id="inicio"
                 name="inicio"
                 type="text"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -162,13 +163,14 @@
             <!-- FIN CAMPO INICIO -->
             <!-- CAMPO LINK IMG  -->
             <validate tag="div">
+              <span style="font-weight: bold">URL Imagen</span>
               <input
-                placeholder="URL Imagen"
+               
                 v-model.trim="formData.img"
                 id="img"
                 name="img"
                 type="text"
-                class="form-control mt-3"
+                class="form-control mb-3"
                 autocomplete="off"
                 required
               />
@@ -185,13 +187,13 @@
 
         <!-- CAMPO DESCRIPCION  -->
         <validate tag="div">
+          <span style="font-weight: bold">Información del Curso</span>
           <textarea
-            placeholder="Descripción del Curso"
             v-model.trim="formData.descripcion"
             id="descripcion"
             name="descripcion"
             type="descripcion"
-            class="form-control mt-3"
+            class="form-control mb-3"
             autocomplete="off"
             required
           ></textarea>
@@ -210,54 +212,31 @@
         </button>
       </vue-form>
 
-      <div
-        class="modal"
-        tabindex="-1"
-        role="dialog"
-        :style="{ display: mostrarDisplay() }"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Usuario ya registrado!</p>
-            </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click="modalShow = false"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- <pre>{{formData}}</pre> -->
     </div>
+
+   
   </section>
 </template>
 
 <script>
-import NavBarBack from "./NavBarBack.vue";
+import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
+import { mixinsBack } from "../mixinsBack";
+
 export default {
-  name: "src-componentes-formulario",
-  props: [],
+  mixins: [mixinsBack],
+  name: "src-componentes-formulario-editar-curso",
+  props: ["id"],
   components: {
     NavBarBack,
   },
-  mounted() {},
+
+  mounted() {
+   this.$store.dispatch("buscarCurso", this.id);
+  },
+
+  updated() {},
+
   data() {
     return {
       formState: {},
@@ -265,15 +244,14 @@ export default {
       nameMinLength: 3,
       edadMin: 18,
       edadMax: 120,
-      checkPass: "",
-      modalShow: false,
       introMaxLength: 100,
     };
   },
+
   methods: {
-    async enviar() {
+    enviar() {
       console.log({ ...this.formData });
-      const curso = {
+      let curso = {
         name: this.formData.name,
         duracion: this.formData.duracion,
         direccion: this.formData.direccion,
@@ -283,20 +261,18 @@ export default {
         inicio: this.formData.inicio,
         intro: this.formData.intro,
         img: this.formData.img,
+        id: this.id,
       };
-      console.log("POST USUARIOS");
-      const resu = await this.$store.dispatch("agregarCurso", curso);
 
-      if (resu) {
-        this.formData = this.getInicialData();
-        this.formState._reset();
-        this.$router.push({
-          path: "/cursos",
-        });
-      } else {
-        console.log("ERROR DE REGISTRO!");
-        this.modalShow = true;
-      }
+      this.$store.dispatch("actualizarCurso", curso);     
+      this.$store.dispatch("getCursos");     
+     
+      this.getInicialData();
+      this.formState._reset();
+      
+      this.$router.push({
+        path: "/cursos",
+      });
     },
 
     getInicialData() {
@@ -313,30 +289,23 @@ export default {
       };
     },
 
-    mostrarDisplay() {
-      let estilo = "none";
-
-      if (this.modalShow) {
-        estilo = "inline";
-        console.log("entre por true");
-      }
-      return estilo;
+    cargarForm(curso) {
+      this.formData.name = curso.name;
+      this.formData.duracion = curso.duracion;
+      this.formData.direccion = curso.direccion;
+      this.formData.descripcion = curso.descripcion;
+      this.formData.valor = curso.valor;
+      this.formData.video = curso.video;
+      this.formData.inicio = curso.inicio;
+      this.formData.img = curso.img;
+      this.formData.intro = curso.intro;
     },
   },
-  computed: {},
+  computed: {
+
+  },
 };
 </script>
 
 <style scoped lang="css">
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1050;
-
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  outline: 0;
-}
 </style>

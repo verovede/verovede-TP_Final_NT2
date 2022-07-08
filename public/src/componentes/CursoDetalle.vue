@@ -28,7 +28,15 @@
 
           <p class="w-100">Duración: {{ mostrarCurso.duracion }}</p>
 
-          <p class="w-100">Valor: {{ mostrarCurso.valor }}</p>
+          <p class="w-100 h2 text-right">
+            <span class="h5">1 Pago de </span>
+            {{ mostrarCurso.valor | moneda("$") }}
+          </p>
+
+          <p class="w-100 h2 text-right">
+            <span class="h5">3 Cuotas de </span>
+            {{ mostrarCurso.valor | cuotas(3) | moneda("$") }}
+          </p>
         </div>
       </div>
     </div>
@@ -52,7 +60,6 @@ export default {
   computed: {
     mostrarCurso() {
       let curso = this.$store.state.examen;
-      console.log("examen", curso);
       return curso;
     },
   },

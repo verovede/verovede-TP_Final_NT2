@@ -55,21 +55,24 @@
 </template>
 
 <script>
-import NavBarBack from "./NavBarBack.vue";
+import NavBarBack from "../componentesBackOffice/NavBarBack.vue";
+import { mixinsBack } from "../mixinsBack";
+
 export default {
+  mixins: [mixinsBack],
   name: "src-componentes-usuario",
   props: [],
   components: {
     NavBarBack,
   },
   mounted() {
-    this.getUsuarios()
+    this.$store.dispatch("getUsuarios");
   },
-  beforeUpdate() {
-  
-  },
+ 
   data() {
-    return {};
+    return {
+    
+    };
   },
   methods: {
     borrarUsuario(id) {
@@ -84,17 +87,9 @@ export default {
       });
     },
 
-   async getUsuarios(){
-    const alumnos = await this.$store.dispatch("getUsuarios");
-    return alumnos
-   }
+ 
   },
-  computed: {
-    mostrarUsuarios() {
-      let usuarios = this.$store.state.usuarios;
-      return usuarios;
-    },
-  },
+  computed: {},
 };
 </script>
 

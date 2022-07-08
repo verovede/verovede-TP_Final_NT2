@@ -20,11 +20,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
        
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link to="/backOffice">
                 <a class="nav-link" href="#">BackOffice</a>
               </router-link>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>

@@ -27,7 +27,7 @@ async function findByCredentials(email, password) {
 
 //BUSCAR USUARIO POR MAIL
 async function getUsuarioByEmail(email) {
-    console.log(email)
+
     const connectiondb = await conn.getConnection();
     const usuario = await connectiondb
         .db(DATABASE)
@@ -53,7 +53,7 @@ async function agregarAlumno(alumno) {
     const usuario = await getUsuarioByEmail(alumno.email)
 
     if (usuario) {
-        console.log("error?")
+
         throw new Error('Ya hay un mail registrado')
     }
 
@@ -85,15 +85,16 @@ async function actualizarAlumno(alumno, id) {
                 $set: {
                     name: alumno.name,
                     email: alumno.email,
-                    password: await bcrypt.hash(alumno.password, 8),
+                    /*   password: await bcrypt.hash(alumno.password, 8), */
                     phone: alumno.phone,
-                    edad: alumno.edad
+                    edad: alumno.edad,
+                    results: alumno.results
 
                 }
             })
 
     const usuarioModificado = await getUsuarioById(id)
-    console.log(result)
+
     return usuarioModificado;
 }
 
@@ -141,28 +142,27 @@ async function agregarCursoAlumno(idUsuario, curso) {
 // BORRAR LOS CURSOS DEL ALUMNO
 async function borrarCursoAlumno(id, data) {
 
-    console.log("usuario data antes ", data)
-
     const connectiondb = await conn.getConnection();
     const usuario = await getUsuarioById(id)
-
-    console.log("usuario data ", data)
-
     const result = await usuario.results
 
     let index = result.findIndex(resultado => resultado.examen_id === data)
     if (index == -1) throw new Error('curso no encontrado')
     result.splice(index, 1)
 
-    console.log("USUARIO DENTRO ---------->", result)
-
     const usuarioActualizado = await connectiondb
         .db(DATABASE)
         .collection(USUARIOS)
-        .updateOne({ _id: new objectId(id) }, { $set: { results: result } });
+        .updateOne({ _id: new objectId(id) }, { $set: { results: result } })
 
-    return usuarioActualizado;
+
+
+
+    return result;
 }
+
+
+
 
 
 module.exports = {
