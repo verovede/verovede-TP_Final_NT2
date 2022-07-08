@@ -240,7 +240,7 @@ export default new Vuex.Store({
         PUT_Usuario(state, data) {
             let index = state.usuarios.findIndex(usuario => usuario.id == data.id)
             state.usuarios.splice(index, 1, data)
-           /*  state.usuario = data */
+            state.usuario = data
         },
 
         SET_USUARIO(state, data) {
