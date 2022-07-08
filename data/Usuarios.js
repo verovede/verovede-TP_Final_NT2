@@ -38,6 +38,7 @@ async function getUsuarioByEmail(email) {
     return usuario;
 }
 
+//BUSCAR USUARIOS POR ID
 async function getUsuarioById(id) {
     const connectiondb = await conn.getConnection();
     const usuario = await connectiondb
@@ -47,6 +48,7 @@ async function getUsuarioById(id) {
     return usuario;
 }
 
+// AGREGAR ALUMNO
 async function agregarAlumno(alumno) {
 
     const connectiondb = await conn.getConnection();
@@ -71,7 +73,7 @@ async function agregarAlumno(alumno) {
 }
 
 
-
+// ACTUALIZAR ALUMNO
 async function actualizarAlumno(alumno, id) {
     const connectiondb = await conn.getConnection();
     const usuario = await getUsuarioById(id)
@@ -100,6 +102,7 @@ async function actualizarAlumno(alumno, id) {
     return usuarioModificado;
 }
 
+// BORRAR ALUMNO
 async function borrarAlumno(id) {
     const connectiondb = await conn.getConnection();
     const usuario = await getUsuarioById(id)
@@ -112,12 +115,13 @@ async function borrarAlumno(id) {
         .deleteOne({ _id: new objectId(id) });
 }
 
+// OSTRAR TODOS LOS ALUMNOS
 async function getTodosAlumnos() {
     const connectiondb = await conn.getConnection();
     const usuarios = await connectiondb
         .db(DATABASE)
         .collection(USUARIOS)
-        .find()
+        .find({rol: 'alumno'})
         .toArray();
     return usuarios;
 }
