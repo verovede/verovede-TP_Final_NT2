@@ -45,7 +45,7 @@ router.delete('/usuarios/:id', async(req,res)=>{
 });
 
 // POST api/usuarios/login BODY -> DATOS
-router.post('/usuarios/login', async (req, res) => {
+router.post('/usuarios/login', checkRols.checkRols('alumno'), async (req, res) => {
     try {
         const usuario = await controller.findByCredential(req.body.email, req.body.password);
         res.status(200).json(usuario);

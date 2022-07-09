@@ -115,7 +115,7 @@ async function borrarAlumno(id) {
         .deleteOne({ _id: new objectId(id) });
 }
 
-// OSTRAR TODOS LOS ALUMNOS
+// MOSTRAR TODOS LOS ALUMNOS
 async function getTodosAlumnos() {
     const connectiondb = await conn.getConnection();
     const usuarios = await connectiondb
