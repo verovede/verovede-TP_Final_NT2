@@ -44,40 +44,35 @@ export default {
   
   methods: {
     getBg(img) {
-      return `background-image: url("img/${img}")`;
+      return `background-image: url("../img/${img}")`;
     },
 
     accionBoton(id) {
-      if (this.click === "Más Info") {
-        console.log("Mas info", id);
+      if (this.click === "Más Info") {        
         this.$router.push({
           path: "/cursoDetalle",
           name: "cursoDetalle",
           params: { id: id },
         });
       }
-      if (this.click === "Inscribirme Ahora!") {
-        console.log("Inscribir", id);
+      if (this.click === "Inscribirme Ahora!") {       
         let datos = {
           idUsuario: this.usuario._id,
           examen_id: id,
           payment: false,
           number: '',
-        };
-        console.log("datos", datos);
+        };       
         this.$store.dispatch("inscribirACurso", datos);
       }
     },
 
-    inscribir(id) {
-      console.log(id);
+    inscribir(id) {     
       let datos = {
         idUsuario: this.usuario._id,
         examen_id: id,
         payment: true,
         number: 8,
-      };
-      console.log("datos", datos);
+      };     
       this.$store.dispatch("inscribirACurso", datos);
     },
   },

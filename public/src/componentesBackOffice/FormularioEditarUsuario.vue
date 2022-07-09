@@ -145,7 +145,10 @@
             <!-- FIN CAMPO CORREO  -->
 
             <!-- ENVIO -->
-            <button class="btn btn-info my-3 float-right" :disabled="formState.$invalid">
+            <button
+              class="btn btn-info my-3 float-right"
+              :disabled="formState.$invalid"
+            >
               Guardar
             </button>
           </vue-form>
@@ -203,7 +206,7 @@ export default {
       this.enviar();
     },
 
-    enviar() {
+    async enviar() {
       console.log({ ...this.formData });
       let usuario = {
         name: this.formData.name,
@@ -215,13 +218,18 @@ export default {
         results: this.results,
       };
 
-      this.$store.dispatch("actualizarUsuario", usuario);
-      this.getInicialData();
-      this.formState._reset();
+      let resu = await this.$store.dispatch("actualizarUsuario", usuario);
 
-      this.$router.push({
-        path: "/usuarios",
-      });
+      if (resu) {
+        this.$router.push({
+          path: "/usuarios",
+        });
+      } else {
+        console.log("ERROR DE REGISTRO!");
+      }
+
+      /*   this.getInicialData();
+      this.formState._reset(); */
     },
 
     getInicialData() {
@@ -242,7 +250,6 @@ export default {
       this.formData.password = usuario.password;
       this.formData.edad = usuario.edad;
       this.results = usuario.results;
-      
     },
 
     traerInfoCurso(id) {

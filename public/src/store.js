@@ -26,8 +26,7 @@ export default new Vuex.Store({
         usuarios: [],
         examenes: [],
         usuario: '',
-        examen: '',
-       
+        examen: '',       
     },
 
     getters: {
@@ -39,8 +38,7 @@ export default new Vuex.Store({
         async getUsuarios({ commit }) {
             try {
                 const usuarios = await axios.get(url + "/api/usuarios")
-                commit('GET_Usuarios', usuarios.data)
-                
+                commit('GET_Usuarios', usuarios.data)                
             }
             catch (error) {
                 alert(error)
@@ -50,7 +48,6 @@ export default new Vuex.Store({
         async eliminarUsuario({ commit }, id) {
             try {
                 const { data: usuario } = await axios.delete(url + "/api/usuarios/" + id)
-
                 commit('DELETE_Usuario', usuario)
                 return true
             }
@@ -80,9 +77,11 @@ export default new Vuex.Store({
                     { 'content-type': 'application/json' }
                 )
                 commit('PUT_Usuario', usuario)
+                return true
             }
             catch (error) {
                 alert(error)
+                return false
             }
         },
 
@@ -153,9 +152,7 @@ export default new Vuex.Store({
                     {
                         headers: { 'content-type': 'application/json' },
                         data: { data: data.curso }
-
                     })
-
                 commit('PUT_results', results)
 
             }
@@ -192,7 +189,6 @@ export default new Vuex.Store({
             try {
                 const { data: curso } = await axios.get(url + "/api/examenes/buscarCurso/" + id)
                 commit('BUSCAR_Curso', curso)
-
             }
             catch (error) {
                 alert(error)
@@ -204,14 +200,14 @@ export default new Vuex.Store({
             try {
                 const { data: curso } = await axios.put(url + "/api/examenes/" + cursoAModificar.id,
                     cursoAModificar,
-                    { 'content-type': 'application/json' }
+                    { 'content-type': 'application/json' }                    
                 )
-
                 commit('PUT_Curso', curso)
-
+                return true
             }
             catch (error) {
                 alert(error)
+                return false
             }
         },
 
@@ -219,10 +215,8 @@ export default new Vuex.Store({
         async borrarCurso({ commit }, id) {
             try {
                 const { data: curso } = await axios.delete(url + "/api/examenes/" + id)
-
                 commit('DELETE_Curso', curso)
                 return true
-
             }
             catch (error) {
                 alert(error)
@@ -234,8 +228,7 @@ export default new Vuex.Store({
 
         //USUARIOS//
         GET_Usuarios(state, data) {
-            state.usuarios = data
-          
+            state.usuarios = data          
         },
 
         DELETE_Usuario(state, data) {
@@ -262,7 +255,6 @@ export default new Vuex.Store({
             state.usuario.results = data
         },
 
-
         //EXAMENES//
         GET_Examenes(state, data) {
             state.examenes = data
@@ -280,7 +272,6 @@ export default new Vuex.Store({
             let index = state.examenes.findIndex(curso => curso.id == data.id)
             state.examenes.splice(index, 1, data)
             state.examen = data
-
         },
 
         DELETE_Curso(state, data) {
@@ -291,6 +282,3 @@ export default new Vuex.Store({
     }
 
 })
-
-
-

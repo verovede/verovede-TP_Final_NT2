@@ -113,7 +113,7 @@
 </template>
 
 <script>
- import { mixinsBack } from '../mixinsBack'
+import { mixinsBack } from "../mixinsBack";
 export default {
   mixins: [mixinsBack],
   name: "src-componentes-loginBackOffice",
@@ -141,12 +141,9 @@ export default {
 
       if (this.modalShow) {
         estilo = "inline";
-        console.log("entre por true");
       }
       return estilo;
     },
-
-    
   },
 
   computed: {},

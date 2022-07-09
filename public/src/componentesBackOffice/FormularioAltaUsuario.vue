@@ -226,8 +226,7 @@ export default {
       let estilo = "none";
 
       if (this.modalShow) {
-        estilo = "inline";
-        console.log("entre por true");
+        estilo = "inline";      
       }
       return estilo;
     },

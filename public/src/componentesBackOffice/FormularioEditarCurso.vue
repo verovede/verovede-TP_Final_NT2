@@ -9,7 +9,7 @@
         <validate tag="div">
           <span style="font-weight: bold">Nombre del Curso</span>
           <input
-          :placeholder="mostrarExamen.name"
+            :placeholder="mostrarExamen.name"
             v-model.trim="formData.name"
             id="name"
             name="name"
@@ -165,7 +165,6 @@
             <validate tag="div">
               <span style="font-weight: bold">URL Imagen</span>
               <input
-               
                 v-model.trim="formData.img"
                 id="img"
                 name="img"
@@ -214,8 +213,6 @@
 
       <!-- <pre>{{formData}}</pre> -->
     </div>
-
-   
   </section>
 </template>
 
@@ -232,7 +229,7 @@ export default {
   },
 
   mounted() {
-   this.$store.dispatch("buscarCurso", this.id);
+    this.$store.dispatch("buscarCurso", this.id);
   },
 
   updated() {},
@@ -249,7 +246,7 @@ export default {
   },
 
   methods: {
-    enviar() {
+    async enviar() {
       console.log({ ...this.formData });
       let curso = {
         name: this.formData.name,
@@ -264,15 +261,15 @@ export default {
         id: this.id,
       };
 
-      this.$store.dispatch("actualizarCurso", curso);     
-      this.$store.dispatch("getCursos");     
-     
-      this.getInicialData();
-      this.formState._reset();
-      
-      this.$router.push({
-        path: "/cursos",
-      });
+      let resu = await this.$store.dispatch("actualizarCurso", curso);
+
+      if (resu) {
+        this.$router.push({
+          path: "/cursos",
+        });
+      } else {
+        console.log("ERROR DE REGISTRO!");
+      }
     },
 
     getInicialData() {
@@ -301,9 +298,7 @@ export default {
       this.formData.intro = curso.intro;
     },
   },
-  computed: {
-
-  },
+  computed: {},
 };
 </script>
 

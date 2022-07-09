@@ -139,16 +139,13 @@ export default {
 
     mostrarDisplay() {
       let estilo = "none";
-
       if (this.modalShow) {
         estilo = "inline";
-        console.log("entre por true");
       }
       return estilo;
     },
 
     async login() {
-      console.log("ENTRO AL METODO LOGIN");
       let usuario = {
         email: this.formData.email,
         password: this.formData.password,
@@ -162,7 +159,6 @@ export default {
           name: "perfilAlumno",
           params: { email: this.formData.email },
         });
-        console.log("Que esta mandando?", this.formData.email);
       } else {
         console.log("ERROR DE REGISTRO!");
         this.modalShow = true;

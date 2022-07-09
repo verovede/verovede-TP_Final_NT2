@@ -50,7 +50,6 @@ export default {
   components: { NavBar },
   props: ["id"],
   mounted() {
-    console.log("MOUNTED BUSCAR USUARIO");
     this.$store.dispatch("buscarCurso", this.id);
   },
   data() {
