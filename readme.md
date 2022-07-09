@@ -9,6 +9,7 @@ Usuarios
 - GET api/usuarios/consultarUsuario/:id 
 - PUT api/usuarios/agregarCursoAlumno/:id BODY -> DATOS
 - DELETE api/usuarios/borrarCursoAlumno/:id BODY -> DATOS 
+- POST api/usuarios/agregarAdmin BODY -> DATOS
 
 Examenes
 
@@ -17,3 +18,5 @@ Examenes
 - PUT api/examenes/:id BODY -> DATOS
 - DELETE api/examenes/:id
 - GET api/examenes/consultarExamen/:id
+
+
