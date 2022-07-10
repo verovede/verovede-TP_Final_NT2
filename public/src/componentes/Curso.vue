@@ -66,15 +66,7 @@ export default {
       }
     },
 
-    inscribir(id) {     
-      let datos = {
-        idUsuario: this.usuario._id,
-        examen_id: id,
-        payment: true,
-        number: 8,
-      };     
-      this.$store.dispatch("inscribirACurso", datos);
-    },
+   
   },
   computed: {},
 };

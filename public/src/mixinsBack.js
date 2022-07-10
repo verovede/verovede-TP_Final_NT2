@@ -14,24 +14,19 @@ export const mixinsBack = {
                 this.visible = true
                 this.$router.push({
                     path: "/usuarios",
-
-
-                });
-                console.log("Que esta mandando?", this.formData.email);
+                });                
             } else {
                 console.log("ERROR DE REGISTRO!");
                 this.modalShow = true;
             }
-        },
-
-       
+        },      
     },
 
     computed: {
         mostrarExamen() {
             console.log("MIXIN BACKOFFICE MOSTRAR EXAMEN")
             let curso = this.$store.state.examen;
-            this.cargarForm(curso);
+            this.cargarForm(curso);            
             return curso;
           },
           
@@ -49,9 +44,7 @@ export const mixinsBack = {
           },
           mostrarUsuarios() {
             console.log("MIXIN BACKOFFICE MOSTRAR USUARIOS")
-            let usuarios = this.$store.state.usuarios;
-           
-            console.log("usuarios" , usuarios)
+            let usuarios = this.$store.state.usuarios;            
             return usuarios;
           },
 
