@@ -17,8 +17,7 @@ export default {
   mounted() {},
   data() {
     return {
-      slide: 0,
-      sliding: null,
+    
     };
   },
   methods: {  
