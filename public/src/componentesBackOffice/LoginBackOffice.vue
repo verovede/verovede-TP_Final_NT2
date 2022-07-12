@@ -129,6 +129,26 @@ export default {
     };
   },
   methods: {
+     async login() {
+            console.log("ENTRO AL METODO LOGIN DEL BACKOFFICE");
+            let usuario = {
+                email: this.formData.email,
+                password: this.formData.password,
+            };
+
+            let resu = await this.$store.dispatch("loguearAdmin", usuario);
+
+            if (resu) {
+                this.visible = true
+                this.$router.push({
+                    path: "/usuarios",
+                });                
+            } else {
+                console.log("ERROR DE REGISTRO!");
+                this.modalShow = true;
+            }
+        },      
+        
     getInicialData() {
       return {
         email: "",
