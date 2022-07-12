@@ -18,7 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            <li class="nav-item dropdown" >
+            <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -72,29 +72,18 @@
 </template>
 
 <script>
- import { mixinsBack } from '../mixinsBack'
-  export default  {
-    mixins: [mixinsBack],
-    name: 'src-componentes-nav-b-ar',
-    props: [],
-    mounted () {
-
-    },
-    data () {
-      return {
-        visible: false
-
-      }
-    },
-    methods: {
-
-    },
-    computed: {
-
-    }
-}
-
-
+export default {
+  name: "src-componentes-nav-b-ar",
+  props: [],
+  mounted() {},
+  data() {
+    return {
+      visible: false,
+    };
+  },
+  methods: {},
+  computed: {},
+};
 </script>
 
 <style scoped lang="css">
