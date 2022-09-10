@@ -12,7 +12,9 @@ import axios from 'axios'
 
 console.log("process.env.NODE_ENV " + process.env.NODE_ENV)
 
-const url = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080') + '' // desarrollo + producción
+//const url = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8080') + '' // desarrollo + producción
+
+const url = (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:1026') + '' // desarrollo + producción
 
 /* 
 const url = 'https://627bf2b3b54fe6ee00919ac6.mockapi.io/usuario/'
@@ -58,7 +60,7 @@ export default new Vuex.Store({
 
         async agregarUsuario({ commit }, usuarioNuevo) {
             try {
-                const { data: usuario } = await axios.post(url + "/api/usuarios", usuarioNuevo, { 'content-type': 'application/json' })
+                const { data: usuario } = await axios.post(url + "/v2/entities", usuarioNuevo, { 'content-type': 'application/json' })
                 commit('POST_Usuario', usuario)
                 return true
 
